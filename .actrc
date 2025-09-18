@@ -1,0 +1,3 @@
+-P cna-ci-runner=catthehacker/ubuntu:act-latest
+-W .github/local/
+--local-repository rboisnard/cna-workflows@local=.

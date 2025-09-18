@@ -1,0 +1,32 @@
+name: localdev
+env:
+  my_value: "default value"
+on:
+  - start
+  - build
+  - test
+  - stop
+
+jobs:
+  setup:
+    runs-on: cna-ci-runner
+    if: github.event_name != 'stop'
+    steps:
+      - name: check value
+        if: contains(fromJson('["start"]'), github.event_name)
+        run: echo "value given ${{ env.my_value }}"
+      - name: hello action
+        if: contains(fromJson('["start"]'), github.event_name)
+        uses: rboisnard/cna-workflows/.github/actions/hello@local
+        with:
+          who-to-greet: "Local Dev"
+      #- uses: rboisnard/cna-workflows/.github/actions/setup-localdev
+
+  build:
+    runs-on: cna-ci-runner
+    needs: [setup]
+    if: github.event_name != 'stop'
+    steps:
+      - name: build step
+        if: contains(fromJson('["build"]'), github.event_name)
+        run: echo "build step"

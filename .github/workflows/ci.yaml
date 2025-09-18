@@ -1,0 +1,10 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rboisnard/cna-workflows/.github/actions/hello@master
+        with:
+          who-to-greet: "CI Runner"
